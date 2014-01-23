@@ -1,0 +1,18 @@
+STATIC STATE
+[You lost a fight against a worthy opponent. ]
+[Don't worry.]
+[Eventually we all do.]
+
+
+'LOSE' STATE
+["Ma'am. He didn't make it. The brain tumor--"]
+["Was he in a lot of distress?"]
+["..."]
+["The important thing is his suffering has now ended."]
+
+
+'WIN' STATE
+["Ma'am. I'm calling to inform you that he passed away. The brain tumor finally got the best of him"]
+["Was he in a lot of pain."]
+["It's hard to imagine what he was experiencing in his state, but he went with great dignity."]
+["A true champion until the very end."]
