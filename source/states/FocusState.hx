@@ -10,15 +10,13 @@ class FocusState extends FlxState
 	
 	override public function create():Void
 	{
-		// Set a background color
-		FlxG.cameras.bgColor = 0xff131c1b;
-		// Show the mouse (in case it hasn't been disabled)
+		FlxG.cameras.bgColor = 0xff000000;
+		
 		#if !FLX_NO_MOUSE
 		FlxG.mouse.show();
 		#end
 		
 		_clickHere = new FlxSprite( 0, 0, "images/clickhere.png" );
-		
 		add( _clickHere );
 		
 		super.create();
@@ -28,7 +26,8 @@ class FocusState extends FlxState
 	{
 		#if !FLX_NO_MOUSE
 		if ( FlxG.mouse.justPressed ) {
-			FlxG.switchState( new PlayState() );
+			//FlxG.switchState( new PlayState() );
+			FlxG.switchState( new HospitalState() );
 		}
 		#end
 		
@@ -38,6 +37,7 @@ class FocusState extends FlxState
 	override public function destroy():Void
 	{
 		_clickHere = null;
+		
 		super.destroy();
 	}
 }

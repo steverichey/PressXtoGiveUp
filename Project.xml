@@ -32,11 +32,25 @@
 	
 	<assets path="assets/sounds" if="flash">
 		<sound path="applause.mp3" id="Applause"/>
+		<sound path="bass.mp3" id="Bass"/>
+		<sound path="bull-hit.mp3" id="BullHit"/>
+		<sound path="bull-miss.mp3" id="BullMiss"/>
+		<sound path="bull-transform.mp3" id="BullTransform"/>
+		<sound path="drums.mp3" id="Drums"/>
+		<sound path="drums-snare.mp3" id="DrumsSnare"/>
+		<sound path="hospital.mp3" id="Hospital"/>
+		<sound path="intro.mp3" id="Intro"/>
+		<sound path="player-hit.mp3" id="PlayerHit"/>
+		<sound path="song.mp3" id="Song"/>
+		<sound path="static.mp3" id="Static"/>
+		<sound path="trumpet.mp3" id="Trumpet"/>
 	</assets>
 	
 	<assets path="assets/sounds" unless="flash">
 		<sound path="applause.mp3" id="Applause"/>
 	</assets>
+	
+	<icon path="assets/icon.svg"/>
 	
 	<haxelib name="openfl" />
 	<haxelib name="flixel"/>
