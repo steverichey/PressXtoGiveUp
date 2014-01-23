@@ -4,7 +4,7 @@ Click the game to start. Play with music (headphones).
 
 This game is about fighting a bull. Change stance (SPACE) when the bull is near. Immediately pull up your banderilla (HOLD UP ARROW) and stab the bull right behind the head (HOLD DOWN ARROW). Run away (LEFT/RIGHT ARROW) whenever you get the chance.
 
-This is an open-source version of the original, ported by [Steve Richey](https://twitter.com/stvr_tweets) to [HaxeFlixel](http://www.haxeflixel.com).
+This is an update of the original, ported by [Steve Richey](https://twitter.com/stvr_tweets) to [HaxeFlixel](http://www.haxeflixel.com) with help from [Jonatan Van Hove](https://twitter.com/joonturbo).
 
 Original game by:
 
@@ -13,4 +13,6 @@ Original game by:
 ### [Henrike Lode](https://twitter.com/machineers) who did art, and has worked on [Machineers](http://machineers.tumblr.com/). 
 ### [Jonas Maaloe](https://twitter.com/jonasmaaloe) who did concept and touchups and has worked on [LAZA KNITEZ](http://lazaknitez.com/)!! 
 ### [Jonatan Van Hove](https://twitter.com/joonturbo) who did programming, and has also worked on [LAZA KNITEZ](http://lazaknitez.com/)!! 
-### [Mads Johansen](https://twitter.com/pyjamads) who did programming, and has worked on [LAZA KNITEZ](http://lazaknitez.com/)!! 
+### [Mads Johansen](https://twitter.com/pyjamads) who did programming, and has worked on [LAZA KNITEZ](http://lazaknitez.com/)!!
+
+[9:39:04 AM] Steve Richey: Press X to Give Up is (C) 2013 Anders Børup, Bram Michielsen, Henrike Lode, Jonas Maaløe, Jonatan Van Hove, Mads Johansen, and Thomas Ryder.
