@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<app title="PressX" file="PressX" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<!------------------------------APPLICATION SETTINGS---------------------------->
 	
-	<window width="1280" height="720" fps="60" orientation="portrait" resizable="true" if="web" />
-	<window width="1280" height="720" fps="60" orientation="landscape" fullscreen="false" hardware="true" vsync="true" unless="web" />
+	<app title="Press X to Give Up" file="PressX" main="Main" version="1.0" company="STVR" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regualary if you embed the swf into a html file, or you can set the actual size of your file manually at "Flxpreloader-onUpdate-bytesTotal"!-->
 	<app preloader="flixel.system.FlxPreloader" />
@@ -11,11 +10,33 @@
 	<!--The swf version should be at least 11.2 if you want to use the FLX_MOUSE_ADVANCED option-->
 	<set name="SWF_VERSION" value="11.2" />
 	
+	<!--------------------------------WINDOW SETTINGS------------------------------->
+	
+	<!--These window settings apply to all targets-->
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="true" />
+	
+	<!--Web-specific-->
+	<window if="web"		orientation="portrait"  />
+	
+	<!--Desktop-specific-->
+	<window if="desktop"	orientation="landscape" fullscreen="false" resizable="true" />
+	
+	<!--Mobile-specific-->
+	<window if="mobile"		orientation="landscape" fullscreen="true" width="0" height="0" />
+	
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
 	
 	<!--You can use rename="newName" to shorten the paths to the individual subdirectories!-->
-	<assets path="assets" />
+	<assets path="assets/images" rename="images" />
+	
+	<assets path="assets/sounds" if="flash">
+		<sound path="applause.mp3" id="Applause"/>
+	</assets>
+	
+	<assets path="assets/sounds" unless="flash">
+		<sound path="applause.mp3" id="Applause"/>
+	</assets>
 	
 	<haxelib name="openfl" />
 	<haxelib name="flixel"/>
