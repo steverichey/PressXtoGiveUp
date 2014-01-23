@@ -38,6 +38,7 @@ Thumbs.db
 
 # Misc #
 ########
+export
 misc
 source-as3
 *.as3proj
