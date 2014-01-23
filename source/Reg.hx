@@ -6,7 +6,8 @@ package;
 class Reg
 {
 	/**
-	 * Whether or not the bull is shown in the hospital scene.
+	 * What type of ending the player received.
+	 * 1 = Gave up, 2 = Lost, 3 = Won
 	 */
-	static public var withBull:Bool = true;
+	static public var ending:Int = 1;
 }

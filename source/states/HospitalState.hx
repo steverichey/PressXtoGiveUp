@@ -25,7 +25,7 @@ class HospitalState extends FlxState
 	private var _roses:FlxTypedGroup<FlxSprite>;
 	
 	/**
-	 * Only shown if withBull.
+	 * Only shown if player won.
 	 */
 	private var _credits:FlxText;
 	
@@ -41,7 +41,7 @@ class HospitalState extends FlxState
 	
 	override public function create():Void
 	{
-		if ( Reg.withBull ) {
+		if ( Reg.ending == 3 ) {
 			FlxG.cameras.bgColor = 0xffFFFFFF;
 		} else {
 			FlxG.cameras.bgColor = 0xff000000;
@@ -53,7 +53,7 @@ class HospitalState extends FlxState
 		
 		_hospitalSprite = new FlxSprite( 0, 0 );
 		
-		if ( Reg.withBull ) {
+		if ( Reg.ending == 3 ) {
 			_hospitalSprite.loadGraphic( "images/hospital-withbull.png" );
 		} else {
 			_hospitalSprite.loadGraphic( "images/hospital-withoutbull.png" );
@@ -64,9 +64,9 @@ class HospitalState extends FlxState
 		add( _hospitalSprite );
 		add( _roses );
 		
-		FlxG.camera.fade( Reg.withBull ? 0xffFFFFFF : 0xff000000, 10, true );
+		FlxG.camera.fade( ( Reg.ending == 3 ) ? 0xffFFFFFF : 0xff000000, 10, true );
 		
-		if ( Reg.withBull ) {
+		if ( Reg.ending == 3 ) {
 			FlxG.sound.playMusic( "Song", 0.5 );
 			
 			_credits = new FlxText( 25, 25, 270, "Joon - \t@joonturbo\nMads - \t@pyjamads\nBram - \t@brammichielsen\nRiker - \t@machineers\nJonas\nMusic by Anders Børup\nLogo by Thomas Ryder" );
@@ -83,7 +83,7 @@ class HospitalState extends FlxState
 	
 	override public function update():Void
 	{
-		if ( Reg.withBull && FlxRandom.chanceRoll( 10 ) ) {
+		if ( ( Reg.ending == 3 ) && FlxRandom.chanceRoll( 10 ) ) {
 			var rose:FlxSprite = null;
 			var string:String = "";
 			
@@ -106,26 +106,18 @@ class HospitalState extends FlxState
 			}
 			
 			var time:Float = FlxRandom.floatRanged( 1, 1.5 );
+			var xDest:Float = FlxRandom.floatRanged( 10, FlxG.width - 10 );
+			var xHalfDest:Float = ( rose.x + xDest ) / 2;
 			
-			switch ( FlxRandom.chanceRoll( 66 ) ) {
-				case true:
-					FlxTween.multiVar( rose, { 	x: FlxRandom.floatRanged( 10, FlxG.width - 10 ), 
-												y: FlxRandom.floatRanged( FlxG.height - 20, FlxG.height ) },
-												time );
-				case false:
-					var xDest:Float = FlxRandom.floatRanged( 10, FlxG.width - 10 );
-					var xHalfDest:Float = ( xDest - rose.x ) / 2;
-					
-					FlxTween.linearPath( rose, [ 	new FlxPoint( rose.x, rose.y ), 
-													new FlxPoint( xHalfDest, FlxRandom.floatRanged( 50, 100 ) ),
-													new FlxPoint( xDest, FlxRandom.floatRanged( FlxG.height - 20, FlxG.height ) ) ],
-													time );
-			}
+			FlxTween.quadPath( rose, [ 	new FlxPoint( rose.x, rose.y ), 
+										new FlxPoint( xHalfDest, FlxRandom.floatRanged( 50, 100 ) ),
+										new FlxPoint( xDest, FlxRandom.floatRanged( FlxG.height - 20, FlxG.height ) ) ],
+										time );
 		}
 		
 		if ( ( _counter > 500 && FlxG.keys.justPressed.ANY ) || _counter > 1500 ) {
 			if ( !_fading ) {
-				FlxG.camera.fade( Reg.withBull ? 0xffFFFFFF : 0xff000000, 5, false, onFaded );
+				FlxG.camera.fade( ( Reg.ending == 3 ) ? 0xffFFFFFF : 0xff000000, 5, false, onFaded );
 				_fading = true;
 			}
 		}
