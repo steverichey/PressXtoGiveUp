@@ -47,10 +47,6 @@ class HospitalState extends FlxState
 			FlxG.cameras.bgColor = 0xff000000;
 		}
 		
-		#if !FLX_NO_MOUSE
-		FlxG.mouse.hide();
-		#end
-		
 		_hospitalSprite = new FlxSprite( 0, 0 );
 		
 		if ( Reg.ending == 3 ) {

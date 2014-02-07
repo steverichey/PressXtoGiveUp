@@ -17,6 +17,7 @@ class TextState extends FlxState
 	private var _text4:FlxText;
 	
 	private var _fading:Bool = false;
+	private var _tweenNum:Int = 0;
 	
 	override public function create():Void
 	{
@@ -25,10 +26,6 @@ class TextState extends FlxState
 		} else {
 			FlxG.camera.bgColor = 0xff000000;
 		}
-		
-		#if !FLX_NO_MOUSE
-		FlxG.mouse.hide();
-		#end
 		
 		_text1 = new FlxText( FlxG.width / 2 - 125, FlxG.height / 2 - 35, 270 );
 		_text2 = new FlxText( FlxG.width / 2 - 125, FlxG.height / 2 - 15, 270 );
@@ -73,13 +70,6 @@ class TextState extends FlxState
 		FlxTween.singleVar( _text3, "alpha", 1, 2, { delay: 6.5 } );
 		FlxTween.singleVar( _text4, "alpha", 1, 2, { delay: 9.5 } );
 		
-		if ( Reg.ending == 1 ) {
-			FlxTween.singleVar( _text1, "alpha", 0, 2, { delay: 3.5 } );
-			FlxTween.singleVar( _text2, "alpha", 0, 2, { delay: 6.5 } );
-			FlxTween.singleVar( _text3, "alpha", 0, 2, { delay: 9.5 } );
-			FlxTween.singleVar( _text4, "alpha", 0, 2, { delay: 12.5 } );
-		}
-		
 		FlxTimer.start( 13, beginFade );
 		
 		super.create();
@@ -92,6 +82,12 @@ class TextState extends FlxState
 			
 			if ( !_fading ) {
 				FlxTimer.start( 1, beginFade );
+			}
+		}
+		
+		if ( Reg.ending == 1 ) {
+			if ( _text1.alpha >= 1 ) {
+				FlxTween.singleVar( _text1, "alpha", 0, 2, { delay: 1 } );
 			}
 		}
 		

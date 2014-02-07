@@ -13,10 +13,6 @@ class FocusState extends FlxState
 	{
 		FlxG.cameras.bgColor = 0xff000000;
 		
-		#if !FLX_NO_MOUSE
-		FlxG.mouse.show();
-		#end
-		
 		// Helps prevent resizing bugs
 		FlxG.resolutionPolicy = new RatioResolutionPolicy();
 		
