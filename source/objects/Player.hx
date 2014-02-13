@@ -6,14 +6,17 @@ import flixel.group.FlxSpriteGroup;
 
 class Player extends FlxSpriteGroup
 {
+	public var state(get, never):Int;
+	
 	private var _player:FlxSprite;
 	private var _clothHandle:ClothHandle;
 	private var _arm:PlayerArm;
+	private var _state:Int = IDLE;
 	
-	inline static private var IDLE:Int = 0;
-	inline static private var DODGING:Int = 1;
-	inline static private var FUCKED:Int = 2;
-	inline static private var GIVEUP:Int = 3;
+	inline static public var IDLE:Int = 0;
+	inline static public var DODGING:Int = 1;
+	inline static public var FUCKED:Int = 2;
+	inline static public var GIVEUP:Int = 3;
 	
 	public function new()
 	{
@@ -42,5 +45,10 @@ class Player extends FlxSpriteGroup
 		_arm.visible = false;
 		add( _arm );
 		Reg.PS.layerFront.add( _arm );
+	}
+	
+	private function get_state():Int
+	{
+		return _state;
 	}
 }

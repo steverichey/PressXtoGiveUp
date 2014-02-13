@@ -18,6 +18,8 @@ class PlayState extends FlxState
 	public var camTarget(get, never):FlxSprite;
 	public var glitches(get, never):FlxTypedGroup<Glitch>;
 	public var layerFront(get, never):FlxGroup;
+	public var layerMiddle(get, never):FlxGroup;
+	public var layerBack(get, never):FlxGroup;
 	
 	private var _player:Player;
 	private var _bull:Bull;
@@ -150,6 +152,16 @@ class PlayState extends FlxState
 	private function get_layerFront():FlxGroup
 	{
 		return _layerFront;
+	}
+	
+	private function get_layerMiddle():FlxGroup
+	{
+		return _layerMiddle;
+	}
+	
+	private function get_layerBack():FlxGroup
+	{
+		return _layerBack;
 	}
 	
 	override public function destroy():Void
