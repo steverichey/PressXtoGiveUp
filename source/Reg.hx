@@ -11,7 +11,7 @@ class Reg
 	 * What type of ending the player received.
 	 * 1 = Gave up, 2 = Lost, 3 = Won
 	 */
-	static public var ending:Int = 2;
+	static public var ending:Int = 1;
 	/**
 	 * A reference to the active playstate.
 	 */

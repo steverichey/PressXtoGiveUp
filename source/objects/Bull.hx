@@ -37,4 +37,9 @@ class Bull extends FlxSpriteGroup
 		
 		drag.x = 200;
 	}
+	
+	public function setIdle( Time:Float ):Void
+	{
+		
+	}
 }

@@ -1,4 +1,6 @@
 package objects;
+
+import haxe.ds.Vector;
 import flash.geom.Rectangle;
 import flixel.FlxBasic;
 import flixel.FlxG;
@@ -16,8 +18,8 @@ class Glitch extends FlxBasic
 	private var _type:Int = 0;
 	private var _rectangle:Rectangle;
 	private var _randomRectangle:Rectangle;
-	private var _hospitalWith:FlxSprite;
 	private var _hospitalWithout:FlxSprite;
+	private var _vector:Vector<Int>;
 	
 	public function new()
 	{
@@ -30,12 +32,34 @@ class Glitch extends FlxBasic
 		_height = FlxRandom.intRanged( 0, 10 );
 		
 		_rectangle = new Rectangle( _x, _y, _width, _height );
-		_randomRectangle = new Rectangle( FlxRandom.intRanged( 0, Std.int( FlxG.width - _width ) ), FlxRandom.intRanged( 0, Std.int( FlxG.height - _height ) ), _width, _height );
+		generateRandomRectangle();
 		
 		_dead = FlxRandom.chanceRoll();
 		_type = FlxRandom.intRanged( 0, 2 );
 		
-		_hospitalWith = new FlxSprite( 0, 0, "images/hospital-withbull.png" );
 		_hospitalWithout = new FlxSprite( 0, 0, "images/hospital-withoutbull.png" );
+	}
+	
+	public function execute():Void
+	{
+		switch( _type ) {
+			case 0:
+				if ( !dead )
+					generateRandomRectangle();
+				_vector = FlxG.camera.buffer.getVector( _randomRectangle );
+				FlxG.camera.buffer.setVector( _rectangle, _vector );
+				_once = true;
+			case 1:
+				_vector = _hospitalWithout.framePixels.getVector( _randomRectangle );
+				FlxG.camera.buffer.setVector( _rectangle, _vector );
+			case 2:
+				_vector = _hospitalWithout.framePixels.getVector( _rectangle );
+				FlxG.camera.buffer.setVector( _rectangle, _vector );
+		}
+	}
+	
+	private function generateRandomRectangle():Void
+	{
+		_randomRectangle = new Rectangle( FlxRandom.intRanged( 0, Std.int( FlxG.width - _width ) ), FlxRandom.intRanged( 0, Std.int( FlxG.height - _height ) ), _width, _height );
 	}
 }

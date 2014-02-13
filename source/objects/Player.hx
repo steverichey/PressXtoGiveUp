@@ -7,12 +7,21 @@ import flixel.group.FlxSpriteGroup;
 class Player extends FlxSpriteGroup
 {
 	private var _player:FlxSprite;
+	private var _clothHandle:ClothHandle;
+	private var _arm:PlayerArm;
+	
+	inline static private var IDLE:Int = 0;
+	inline static private var DODGING:Int = 1;
+	inline static private var FUCKED:Int = 2;
+	inline static private var GIVEUP:Int = 3;
 	
 	public function new()
 	{
 		super( 100, 106 );
 		
 		drag.x = 100;
+		maxVelocity.x = drag.x;
+		maxVelocity.y = drag.y;
 		
 		_player = new FlxSprite();
 		_player.loadGraphic("images/player_walk.png", true, true, 60, 60);
@@ -26,5 +35,12 @@ class Player extends FlxSpriteGroup
 		_player.animation.add("hitLeft", [11,13,15,17], 10, true);
 		_player.animation.add("giveUp", [18], 2, true);
 		_player.facing = FlxObject.RIGHT;
+		
+		_clothHandle = new ClothHandle( x, y + 20 );
+		
+		_arm = new PlayerArm( this );
+		_arm.visible = false;
+		add( _arm );
+		Reg.PS.layerFront.add( _arm );
 	}
 }
