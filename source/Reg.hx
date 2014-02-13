@@ -1,5 +1,7 @@
 package;
 
+import states.PlayState;
+
 /**
  * Storage for global variables.
  */
@@ -10,4 +12,8 @@ class Reg
 	 * 1 = Gave up, 2 = Lost, 3 = Won
 	 */
 	static public var ending:Int = 2;
+	/**
+	 * A reference to the active playstate.
+	 */
+	static public var PS:PlayState;
 }

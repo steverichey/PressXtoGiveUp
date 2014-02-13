@@ -19,7 +19,7 @@
 	<window if="web"		orientation="portrait"  />
 	
 	<!--Desktop-specific-->
-	<window if="desktop"	orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="desktop"	orientation="landscape" fullscreen="true" resizable="true" />
 	
 	<!--Mobile-specific-->
 	<window if="mobile"		orientation="landscape" fullscreen="true" width="0" height="0" />
@@ -52,34 +52,17 @@
 	
 	<icon path="assets/icon.svg"/>
 	
-	<haxelib name="openfl" />
+	<haxelib name="openfl"/>
 	<haxelib name="flixel"/>
-	
-	<!--In case you want to use the addons package-->
-	<!--<haxelib name="flixel-addons" />-->
-	
-	<!--In case you want to use the ui package-->
-	<!--<haxelib name="flixel-ui"/>-->
-	
-	<!--In case you want to use nape with flixel-->
-	<!--<haxelib name="nape" />-->
-	<!--Enable this for nape release builds for a serious peformance improvement-->
-	<!--<haxedef name="NAPE_RELEASE_BUILD" />--> 
-	
-	<!--Enable the flixel core recording system-->
-	<!--<haxedef name="FLX_RECORD" />-->
-	
-	<!--Enable right and middle click support for the mouse. Flash player version 11.2+, no HTML5 support -->
-	<!--<haxedef name="FLX_MOUSE_ADVANCED" />-->
 	
 	<!--Disable the Native cursor api for Flash target-->
 	<!-- <haxedef name="FLX_NO_NATIVE_CURSOR" /> -->
 	
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
-	<!--<haxedef name="FLX_NO_MOUSE" if="mobile" />-->
-	<!--<haxedef name="FLX_NO_KEYBOARD" if="mobile" />-->
-	<!--<haxedef name="FLX_NO_TOUCH" if="desktop" />-->
-	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
+	<haxedef name="FLX_NO_MOUSE" if="mobile" />
+	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
+	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+	<haxedef name="FLX_NO_GAMEPAD" if="flash" />
 	
 	<!--Disable the Flixel core sound tray-->
 	<!--<haxedef name="FLX_NO_SOUND_TRAY" />-->

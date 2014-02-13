@@ -3,7 +3,7 @@ package states;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.system.resolution.RatioResolutionPolicy;
+import flixel.system.scaleModes.RatioScaleMode;
 
 class FocusState extends FlxState
 {
@@ -14,9 +14,13 @@ class FocusState extends FlxState
 		FlxG.cameras.bgColor = 0xff000000;
 		
 		// Helps prevent resizing bugs
-		FlxG.resolutionPolicy = new RatioResolutionPolicy();
+		FlxG.scaleMode = new RatioScaleMode();
 		
+		#if mobile
+		_clickHere = new FlxSprite( 0, 0, "images/touchhere.png" );
+		#else
 		_clickHere = new FlxSprite( 0, 0, "images/clickhere.png" );
+		#end
 		add( _clickHere );
 		
 		super.create();
@@ -26,11 +30,11 @@ class FocusState extends FlxState
 	{
 		#if !FLX_NO_MOUSE
 		if ( FlxG.mouse.justPressed ) {
-			//FlxG.switchState( new PlayState() );
-			//FlxG.switchState( new HospitalState() );
-			FlxG.switchState( new TextState() );
-		}
+		#else if !FLX_NO_TOUCH
+		if ( FlxG.touches.getFirst() != null ) {
 		#end
+			FlxG.switchState( new PlayState() );
+		}
 		
 		super.update();
 	}
