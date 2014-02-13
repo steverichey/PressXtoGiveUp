@@ -5,8 +5,11 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
+import flixel.group.FlxTypedGroup.FlxTypedGroup;
+import flixel.tweens.FlxTween;
 import objects.Bull;
 import objects.Player;
+import objects.Glitch;
 
 class PlayState extends FlxState
 {
@@ -18,6 +21,7 @@ class PlayState extends FlxState
 	private var _title:FlxSprite;
 	private var _help:FlxSprite;
 	private var _camTarget:FlxSprite;
+	private var _glitches:FlxTypedGroup<Glitch>;
 	
 	private var _hideHelp:Bool = false;
 	
@@ -61,12 +65,26 @@ class PlayState extends FlxState
 		
 		FlxG.camera.follow( _camTarget, FlxCamera.STYLE_PLATFORMER );
 		
+		_glitches = new FlxTypedGroup<Glitch>();
 		
+		_title = new FlxSprite( 12, -FlxG.height + 72, "images/title.png" );
+		_title.scrollFactor.x = 0;
+		_title.scrollFactor.y = 0;
+		_layerFront.add( _title );
+		
+		FlxTween.singleVar( _title, "y", 70, 1, { complete: titleOut } );
+		
+		FlxG.sound.play( "Intro" );
 	}
 	
 	override public function update():Void
 	{
 		super.update();
+	}
+	
+	private function titleOut( ?f:FlxTween ):Void
+	{
+		
 	}
 	
 	override public function destroy():Void

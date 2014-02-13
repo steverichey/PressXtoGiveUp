@@ -33,6 +33,7 @@
 	<assets path="assets/sounds" if="flash">
 		<sound path="applause.mp3" id="Applause"/>
 		<sound path="bass.mp3" id="Bass"/>
+		<sound path="bass-drum.mp3" id="BassDrum"/>
 		<sound path="bull-hit.mp3" id="BullHit"/>
 		<sound path="bull-miss.mp3" id="BullMiss"/>
 		<sound path="bull-transform.mp3" id="BullTransform"/>
@@ -47,7 +48,20 @@
 	</assets>
 	
 	<assets path="assets/sounds" unless="flash">
-		<sound path="applause.mp3" id="Applause"/>
+		<sound path="applause.ogg" id="Applause"/>
+		<sound path="bass.ogg" id="Bass"/>
+		<sound path="bass-drum.ogg" id="BassDrum"/>
+		<sound path="bull-hit.ogg" id="BullHit"/>
+		<sound path="bull-miss.ogg" id="BullMiss"/>
+		<sound path="bull-transform.ogg" id="BullTransform"/>
+		<sound path="drums.ogg" id="Drums"/>
+		<sound path="drums-snare.ogg" id="DrumsSnare"/>
+		<sound path="hospital.ogg" id="Hospital"/>
+		<sound path="intro.ogg" id="Intro"/>
+		<sound path="player-hit.ogg" id="PlayerHit"/>
+		<sound path="song.ogg" id="Song"/>
+		<sound path="static.ogg" id="Static"/>
+		<sound path="trumpet.ogg" id="Trumpet"/>
 	</assets>
 	
 	<icon path="assets/icon.svg"/>
