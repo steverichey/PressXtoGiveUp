@@ -118,6 +118,11 @@ class PlayState extends FlxState
 		_glitches.callAll( "execute" );
 	}
 	
+	public function addGlitch():Void
+	{
+		_glitches.add( new Glitch() );
+	}
+	
 	private function titleOut( ?f:FlxTween ):Void
 	{
 		FlxTween.singleVar( _help, "y", 72 - FlxG.height, 3 );

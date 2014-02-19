@@ -34,7 +34,7 @@ class PlayerArm extends FlxSprite
 		}
 		else if ( Reg.PS.player.state == Player.DODGING && FlxG.keys.justPressed.UP )
 		{
-			FlxTween.singleVar( this, "y", 0, 2 { complete: readyToAttack } );
+			FlxTween.singleVar( this, "y", 0, 2, { complete: readyToAttack } );
 			_inNeutralPosition = false;
 		}
 		else if ( !FlxG.keys.pressed.UP && !FlxG.keys.pressed.DOWN )
@@ -63,8 +63,8 @@ class PlayerArm extends FlxSprite
 	{
 		if ( _readyToAttack && Reg.PS.bull.x + 10 < x && x < Reg.PS.bull.x + Reg.PS.bull.width - 20 )
 		{
-			Reg.PS.bull.AddSpike();
-			Reg.PS.bull.LevelUp();
+			Reg.PS.bull.addSpike();
+			Reg.PS.bull.levelUp();
 			FlxG.sound.play( "BullHit" );
 		}
 		else
@@ -73,7 +73,7 @@ class PlayerArm extends FlxSprite
 			FlxG.sound.play( "BullMiss" );
 		}
 		
-		Reg.PS.player.state = Player.IDLE;
+		Reg.PS.player.idle();
 		visible = false;
 		
 		FlxG.timeScale = 1;

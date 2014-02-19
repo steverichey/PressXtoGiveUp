@@ -1,5 +1,6 @@
 package objects;
 
+import flixel.FlxObject;
 import flixel.FlxSprite;
 
 class BullHead extends FlxSprite
@@ -25,12 +26,34 @@ class BullHead extends FlxSprite
 	
 	override public function update()
 	{
+		if ( facing == FlxObject.RIGHT ) {
+			if ( eyeState == GREENEYE ) {
+				animation.play( "rightGreen" );
+			} else {
+				animation.play( "rightRed" );
+			}
+		} else {
+			if ( eyeState == GREENEYE ) {
+				animation.play( "leftGreen" );
+			} else {
+				animation.play( "leftRed" );
+			}
+		}
 		
+		super.update();
 	}
 	
 	public function changeHeadPosition( Position:Int ):Void
 	{
-		
+		if ( Position == HEADLEFT ) {
+			headState = HEADLEFT;
+			//_posToRoot.x = 7;
+			facing = FlxObject.LEFT;
+		} else {				
+			headState = HEADRIGHT;
+			//_posToRoot.x = parent.width - 41;
+			facing = FlxObject.RIGHT;
+		}
 	}
 	
 	public function changeColor( EyeColor:Int = GREENEYE ):Int

@@ -1,6 +1,6 @@
 package objects;
 
-import haxe.ds.Vector;
+import flash.Vector;
 import flash.geom.Rectangle;
 import flixel.FlxBasic;
 import flixel.FlxG;
@@ -19,7 +19,7 @@ class Glitch extends FlxBasic
 	private var _rectangle:Rectangle;
 	private var _randomRectangle:Rectangle;
 	private var _hospitalWithout:FlxSprite;
-	private var _vector:Vector<Int>;
+	private var _vector:Vector<UInt>;
 	
 	public function new()
 	{
@@ -37,14 +37,14 @@ class Glitch extends FlxBasic
 		_dead = FlxRandom.chanceRoll();
 		_type = FlxRandom.intRanged( 0, 2 );
 		
-		_hospitalWithout = new FlxSprite( 0, 0, "images/hospital-withoutbull.png" );
+		_hospitalWithout = new FlxSprite( 0, 0, "images/hospital_without.png" );
 	}
 	
 	public function execute():Void
 	{
 		switch( _type ) {
 			case 0:
-				if ( !dead )
+				if ( !_dead )
 					generateRandomRectangle();
 				_vector = FlxG.camera.buffer.getVector( _randomRectangle );
 				FlxG.camera.buffer.setVector( _rectangle, _vector );

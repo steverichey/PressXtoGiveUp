@@ -27,19 +27,19 @@ class Spike extends FlxSprite
 		changeDirection( FacingLeft );
 	}
 	
-	private var changeDirection( Left:Bool ):Void
+	private function changeDirection( Left:Bool ):Void
 	{
 		if ( _idle ) {
 			if ( _facingLeft ) {
-				play( "idleleft" );
+				animation.play( "idleleft" );
 			} else {
-				play( "idleright" );
+				animation.play( "idleright" );
 			}
 		} else {
 			if ( _facingLeft ) {
-				play( "left" );
+				animation.play( "left" );
 			} else {
-				play( "right" );
+				animation.play( "right" );
 			}
 		}
 	}
