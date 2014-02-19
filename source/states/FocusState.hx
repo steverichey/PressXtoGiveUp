@@ -23,6 +23,8 @@ class FocusState extends FlxState
 		#end
 		add( _clickHere );
 		
+		Audio.init();
+		
 		super.create();
 	}
 	

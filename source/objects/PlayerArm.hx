@@ -82,6 +82,6 @@ class PlayerArm extends FlxSprite
 	
 	private function throwStick( ?f:FlxTween ):Void
 	{
-		Reg.PS.layerBack.add( new Spike( x + width / 2, y + 50, "images/stick02.png", null, Reg.PS.player.facing == FlxObject.LEFT, true ) );
+		Reg.PS.layerBack.add( new Spike( x + width / 2, y + 50, Reg.PS.player.facing == FlxObject.LEFT, true ) );
 	}
 }

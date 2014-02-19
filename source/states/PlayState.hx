@@ -7,6 +7,8 @@ import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.group.FlxTypedGroup.FlxTypedGroup;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import objects.Bull;
 import objects.Player;
 import objects.Glitch;
@@ -32,6 +34,7 @@ class PlayState extends FlxState
 	private var _glitches:FlxTypedGroup<Glitch>;
 	
 	private var _hideHelp:Bool = false;
+	private var _maxX:Int = 0;
 	
 	override public function create():Void
 	{
@@ -55,16 +58,13 @@ class PlayState extends FlxState
 		add( _layerFront );
 		
 		for ( i in 0...100 ) {
-			_layerBack.add( new FlxSprite( ( i - 50 ) * 440, -120, "images/arena.png" ) );
+			_layerBack.add( new FlxSprite( ( i - 50 ) * 440, 0, "images/arena.png" ) );
 		}
 		
 		_player = new Player();
 		_bull = new Bull();
 		
 		_layerMiddle.add( _bull );
-		//_layerMiddle.add( _bull.Legs );
-		//_layerMiddle.add( _bull.Head );
-		
 		_layerFront.add( _player );
 		
 		_camTarget = new FlxSprite( FlxG.width / 2, FlxG.height / 2 );
@@ -72,6 +72,7 @@ class PlayState extends FlxState
 		add( _camTarget );
 		
 		FlxG.camera.follow( _camTarget, FlxCamera.STYLE_PLATFORMER );
+		FlxG.camera.setBounds( 0, 0, 22000, 180, true );
 		
 		_glitches = new FlxTypedGroup<Glitch>();
 		
@@ -80,17 +81,16 @@ class PlayState extends FlxState
 		_title.scrollFactor.y = 0;
 		_layerFront.add( _title );
 		
-		FlxTween.singleVar( _title, "y", 70, 1, { complete: titleOut } );
+		FlxTween.singleVar( _title, "y", 70, 1 );
 		
 		FlxG.sound.play( "Intro" );
 		
 		_help = new FlxSprite( 0, 0, "images/help.png" );
-		_help.y = FlxG.height - _help.height;
+		_help.x = ( FlxG.width - _help.width ) / 2;
+		_help.y = FlxG.height - _help.height - 4;
 		_help.scrollFactor.x = 0;
 		_help.scrollFactor.y = 0;
 		_layerFront.add( _help );
-		
-		FlxTween.singleVar( _help, "y", FlxG.height - 32, 0.5 );
 	}
 	
 	override public function update():Void
@@ -118,6 +118,31 @@ class PlayState extends FlxState
 		_glitches.callAll( "execute" );
 	}
 	
+	public function endGame( EndType:Int ):Void
+	{
+		Reg.ending = EndType;
+		
+		switch ( EndType ) {
+			case 1:
+				FlxTimer.start( 7, fadeGame );
+				FlxG.sound.play( "Static" );
+			case 2:
+				FlxG.camera.fade( FlxColor.BLACK, 5, false, nextState );
+			case 3:
+				FlxG.camera.fade( FlxColor.WHITE, 10, false, nextState );
+		}
+	}
+	
+	private function fadeGame( ?t:FlxTimer ):Void
+	{
+		FlxG.camera.fade( FlxColor.BLACK, 3, false, nextState );
+	}
+	
+	private function nextState():Void
+	{
+		FlxG.switchState( new TextState() );
+	}
+	
 	public function addGlitch():Void
 	{
 		_glitches.add( new Glitch() );
@@ -125,13 +150,13 @@ class PlayState extends FlxState
 	
 	private function titleOut( ?f:FlxTween ):Void
 	{
-		FlxTween.singleVar( _help, "y", 72 - FlxG.height, 3 );
+		FlxTween.singleVar( _title, "y", -_title.height, 3 );
 	}
 	
 	private function removeHelpAndTitle( ?f:FlxTween ):Void
 	{
 		FlxTween.singleVar( _help, "y", FlxG.height, 0.5 );
-		FlxTween.singleVar( _title, "y", FlxG.height - 42 + 72, 1, { complete: titleOut } );
+		FlxTween.singleVar( _title, "y", _title.y + 40, 1, { complete: titleOut } );
 	}
 	
 	private function get_player():Player

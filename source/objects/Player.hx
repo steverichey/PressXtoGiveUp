@@ -4,9 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import states.TextState;
 
 class Player extends FlxSpriteGroup
 {
@@ -54,9 +52,6 @@ class Player extends FlxSpriteGroup
 		_clothHandle = new ClothHandle( 0, 20 );
 		add( _clothHandle );
 		
-		trace( _player.x + ", " + _player.y );
-		trace( _clothHandle.x + ", " + _clothHandle.y );
-		
 		_arm = new PlayerArm();
 		_arm.visible = false;
 		add( _arm );
@@ -67,9 +62,7 @@ class Player extends FlxSpriteGroup
 	{
 		if ( FlxG.keys.justPressed.X && _state != GIVEUP ) {
 			_state = GIVEUP;
-			Reg.ending = 1;
-			FlxTimer.start( 7, fadeGame );
-			FlxG.sound.play( "Static" );
+			Reg.PS.endGame( 1 );
 		}
 		
 		switch( _state ) {
@@ -165,18 +158,13 @@ class Player extends FlxSpriteGroup
 		FlxG.sound.play( "PlayerHit" );
 	}
 	
+	public function hideArm():Void
+	{
+		// _arm.visible = false; // probably
+	}
+	
 	private function get_state():Int
 	{
 		return _state;
-	}
-	
-	private function fadeGame( ?t:FlxTimer ):Void
-	{
-		FlxG.camera.fade( FlxColor.BLACK, 3, false, endGame );
-	}
-	
-	private function endGame():Void
-	{
-		FlxG.switchState( new TextState() );
 	}
 }

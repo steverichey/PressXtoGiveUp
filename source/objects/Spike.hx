@@ -5,19 +5,14 @@ import flixel.FlxSprite;
 class Spike extends FlxSprite
 {
 	private var _idle:Bool = false;
-	private var _facingLeft:Bool = false;
 	
-	public function new( X:Float, Y:Float, Source:String, bull:Bull, FacingLeft:Bool, Idle:Bool = false )
+	public function new( X:Float, Y:Float, FacingLeft:Bool, Idle:Bool = false )
 	{
 		_idle = Idle;
 		
-		if ( bull != null ) {
-			super( bull.x, bull.y );
-		} else {
-			super( X, Y );
-		}
+		super( X, Y );
 		
-		loadGraphic( Source, true, FacingLeft, 12, 11 );
+		loadGraphic( "images/spike.png", true, FacingLeft, 12, 11 );
 		
 		animation.add( "idleleft", [0] );
 		animation.add( "idleright", [1] );
@@ -27,16 +22,16 @@ class Spike extends FlxSprite
 		changeDirection( FacingLeft );
 	}
 	
-	private function changeDirection( Left:Bool ):Void
+	public function changeDirection( Left:Bool ):Void
 	{
 		if ( _idle ) {
-			if ( _facingLeft ) {
+			if ( Left ) {
 				animation.play( "idleleft" );
 			} else {
 				animation.play( "idleright" );
 			}
 		} else {
-			if ( _facingLeft ) {
+			if ( Left ) {
 				animation.play( "left" );
 			} else {
 				animation.play( "right" );

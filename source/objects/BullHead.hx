@@ -13,9 +13,9 @@ class BullHead extends FlxSprite
 	inline static public var REDEYE:Int = 0;
 	inline static public var GREENEYE:Int = 1;
 	
-	public function new( Parent:Bull )
+	public function new( X:Int, Y:Int )
 	{
-		super( Parent.x, Parent.y );
+		super( X, Y );
 		loadGraphic( "images/bull-head.png", true, false, 34, 40 );
 		
 		animation.add("leftRed",   [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], 10, true);
