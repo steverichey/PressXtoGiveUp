@@ -49,7 +49,7 @@ class Player extends FlxSpriteGroup
 		_player.facing = FlxObject.RIGHT;
 		add( _player );
 		
-		_clothHandle = new ClothHandle( 0, 20 );
+		_clothHandle = new ClothHandle( x, y + 20 );
 		add( _clothHandle );
 		
 		_arm = new PlayerArm();

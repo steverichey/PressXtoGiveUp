@@ -15,7 +15,7 @@ class ClothHandle extends FlxSprite
 		
 		Reg.PS.layerFront.add( this );
 		
-		_topPiece = new ClothPiece( X, Y, 10, CLOTH_HEIGHT, "images/cloth-top.png" );
+		_topPiece = new ClothPiece( X, Y, 10, CLOTH_HEIGHT, "images/cloth_top.png" );
 		var previousPiece:ClothPiece = _topPiece;
 		
 		for ( i in 2...10 ) {

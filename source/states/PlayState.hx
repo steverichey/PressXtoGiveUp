@@ -57,8 +57,8 @@ class PlayState extends FlxState
 		add( _layerMiddle );
 		add( _layerFront );
 		
-		for ( i in 0...100 ) {
-			_layerBack.add( new FlxSprite( ( i - 50 ) * 440, 0, "images/arena.png" ) );
+		for ( i in 0...2000 ) {
+			_layerBack.add( new FlxSprite( ( i - 1000 ) * 20, 0, "images/arena.png" ) );
 		}
 		
 		_player = new Player();

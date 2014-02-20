@@ -47,29 +47,18 @@ class Bull extends FlxSpriteGroup
 	{
 		super( 250, 57 );
 		
-		_body = new FlxSprite();
-		_body.loadGraphic("images/bull_body.png", true, false, 116, 112);
-		_body.animation.add("left1", [0], 0);
-		_body.animation.add("left2", [2], 0);
-		_body.animation.add("left3", [4], 0);
-		_body.animation.add("left4", [6], 0);
-		_body.animation.add("left5", [8], 0);
+		_body = new FlxSprite( 31, 3 );
+		_body.loadGraphic("images/bull_body.png", true, true, 113, 102);
+		_body.animation.add("idle0", [0], 0);
+		_body.animation.add("idle1", [1], 0);
+		_body.animation.add("idle2", [2], 0);
+		_body.animation.add("idle3", [3], 0);
+		_body.animation.add("idle4", [4], 0);
 		
-		_body.animation.add("leftMorph2", [0,0,0,0,0,2,0,0,0,0,2,0,0,0,2,0,0,2,0,2,0,0,2], 20);
-		_body.animation.add("leftMorph3", [2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 4, 2, 2, 2, 4, 2, 2, 4, 2, 4, 2, 2, 4], 20);
-		_body.animation.add("leftMorph4", [4,4,4,4,4,6,4,4,4,4,6,4,4,4,6,4,4,6,4,6,4,4,6], 20);
-		_body.animation.add("leftMorph5", [6,6,6,6,6,8,6,6,6,6,8,6,6,6,8,6,6,8,6,8,6,6,8], 20);
-		
-		_body.animation.add("right1", [1], 0);
-		_body.animation.add("right2", [3], 0);
-		_body.animation.add("right3", [5], 0);
-		_body.animation.add("right4", [7], 0);
-		_body.animation.add("right5", [9], 0);
-		
-		_body.animation.add("rightMorph2", [1,1,1,1,1,3,1,1,1,1,3,1,1,1,3,1,1,3,1,3,1,1,3], 20);
-		_body.animation.add("rightMorph3", [3,3,3,3,3,5,3,3,3,3,5,3,3,3,5,3,3,5,3,5,3,3,5], 20);
-		_body.animation.add("rightMorph4", [5,5,5,5,5,7,5,5,5,5,7,5,5,5,7,5,5,7,5,7,5,5,7], 20);
-		_body.animation.add("rightMorph5", [7,7,7,7,7,9,7,7,7,7,9,7,7,7,9,7,7,9,7,9,7,7,9], 20);
+		_body.animation.add("morph2", [0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,1,0,0,1], 20);
+		_body.animation.add("morph3", [1,1,1,1,1,2,1,1,1,1,2,1,1,1,2,1,1,2,1,2,1,1,2], 20);
+		_body.animation.add("morph4", [2,2,2,2,2,3,2,2,2,2,3,2,2,2,3,2,2,3,2,3,2,2,3], 20);
+		_body.animation.add("morph5", [3,3,3,3,3,4,3,3,3,3,4,3,3,3,4,3,3,4,3,4,3,3,4], 20);
 		
 		add( _body );
 		
@@ -78,11 +67,13 @@ class Bull extends FlxSpriteGroup
 		maxVelocity.y = 200;
 		solid = true;
 		
-		_head = new BullHead( 7, 52 );
-		_legs = new BullLegs( 0, 0 );
+		_head = new BullHead( 7, 56 );
+		_legs = new BullLegs( 42, 85 );
 		
 		add( _head );
 		add( _legs );
+		
+		facing = FlxObject.LEFT;
 		
 		_headBob = FlxTween.singleVar( _head, "y", _head.y + 3, 1, { type: FlxTween.PINGPONG } );
 		
@@ -91,25 +82,8 @@ class Bull extends FlxSpriteGroup
 	
 	override public function update():Void
 	{
-		if ( _queueLevelAnimCounter <= 0 ) {
-			if ( _body.facing == FlxObject.LEFT ) {
-				switch( _level ) {
-					case 0:	_body.animation.play( "left1" );
-					case 1: _body.animation.play( "left2" );
-					case 2: _body.animation.play( "left3" );
-					case 3: _body.animation.play( "left4" );
-					case 4: _body.animation.play( "left5" );
-				}
-			} else {
-				switch( _level ) {
-					case 0: _body.animation.play("right1");
-					case 1: _body.animation.play("right2");
-					case 2: _body.animation.play("right3");
-					case 3: _body.animation.play("right4");
-					case 4:	_body.animation.play("right5");			
-				}
-			}
-		}
+		if ( _queueLevelAnimCounter <= 0 )
+			_body.animation.play( "idle" + _level );
 		
 		switch ( _state ) {
 			case IDLE: 

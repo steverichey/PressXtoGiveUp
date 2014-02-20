@@ -16,28 +16,20 @@ class BullHead extends FlxSprite
 	public function new( X:Int, Y:Int )
 	{
 		super( X, Y );
-		loadGraphic( "images/bull-head.png", true, false, 34, 40 );
+		loadGraphic( "images/bull_head.png", true, true, 31, 24 );
 		
-		animation.add("leftRed",   [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], 10, true);
-		animation.add("rightRed",  [7, 7, 7, 7, 7, 7, 7, 7, 6, 5, 4,7, 7, 7, 7, 7, 7,7 , 7, 7], 10, true);
-		animation.add("leftGreen", [8, 8, 8, 8, 8, 8, 8, 8, 9, 10, 11,8, 8, 8, 8, 8, 8, 8,8,8], 10, true);
-		animation.add("rightGreen",[15,15,15,15,15,15,15,15,14,13, 12, 15, 15, 15, 15, 15, 15, 15, 15, 15], 10, true);
+		animation.add("red",   [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], 10, true);
+		animation.add("green", [4, 4, 4, 4, 4, 4, 4, 4, 5, 6, 7, 4, 4, 4, 4, 4, 4, 4, 4, 4], 10, true);
+		
+		facing = FlxObject.LEFT;
 	}
 	
 	override public function update()
 	{
-		if ( facing == FlxObject.RIGHT ) {
-			if ( eyeState == GREENEYE ) {
-				animation.play( "rightGreen" );
-			} else {
-				animation.play( "rightRed" );
-			}
+		if ( eyeState == GREENEYE ) {
+			animation.play( "green" );
 		} else {
-			if ( eyeState == GREENEYE ) {
-				animation.play( "leftGreen" );
-			} else {
-				animation.play( "leftRed" );
-			}
+			animation.play( "red" );
 		}
 		
 		super.update();
@@ -47,11 +39,9 @@ class BullHead extends FlxSprite
 	{
 		if ( Position == HEADLEFT ) {
 			headState = HEADLEFT;
-			//_posToRoot.x = 7;
 			facing = FlxObject.LEFT;
 		} else {				
 			headState = HEADRIGHT;
-			//_posToRoot.x = parent.width - 41;
 			facing = FlxObject.RIGHT;
 		}
 	}

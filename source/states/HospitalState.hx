@@ -8,26 +8,18 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.tweens.motion.LinearMotion;
+import flixel.util.FlxGradient;
 import flixel.util.FlxMath;
 import flixel.util.FlxPoint;
 import flixel.util.FlxRandom;
+import flixel.util.FlxSpriteUtil;
 
 class HospitalState extends FlxState
 {
 	/**
-	 * A sprite containing the hospital graphic.
-	 */
-	private var _hospitalSprite:FlxSprite;
-	
-	/**
 	 * A group that will hold the roses that are "thrown" on screen.
 	 */
 	private var _roses:FlxTypedGroup<FlxSprite>;
-	
-	/**
-	 * Only shown if player won.
-	 */
-	private var _credits:FlxText;
 	
 	/**
 	 * Counts up once per frame, determines when fading will/can begin.
@@ -47,17 +39,25 @@ class HospitalState extends FlxState
 			FlxG.cameras.bgColor = 0xff000000;
 		}
 		
-		_hospitalSprite = new FlxSprite( 0, 0 );
+		add( FlxGradient.createGradientFlxSprite( FlxG.width, 161, [ 0xffA2A2A2, 0xffDDDDDD ] ) );
+		var floor:FlxSprite = FlxGradient.createGradientFlxSprite( FlxG.width, 39, [ 0xffC7C7C7, 0xffC7C7C7 ] );
+		floor.y = 161;
+		add( floor );
+		
+		add( new FlxSprite( 21, 134, "images/bed.png" ) );
+		add( new FlxSprite( 187, 68, "images/window.png" ) );
+		add( new FlxSprite( 237, 68, "images/window.png" ) );
+		
+		if ( Reg.ending == 2 ) {
+			add( new FlxSprite( 63, 81, "images/painting.png" ) );
+		}
 		
 		if ( Reg.ending == 3 ) {
-			_hospitalSprite.loadGraphic( "images/hospital-withbull.png" );
-		} else {
-			_hospitalSprite.loadGraphic( "images/hospital-withoutbull.png" );
+			add( new FlxSprite( 199, 131, "images/hospibull.png" ) );
 		}
 		
 		_roses = new FlxTypedGroup<FlxSprite>();
 		
-		add( _hospitalSprite );
 		add( _roses );
 		
 		FlxG.camera.fade( ( Reg.ending == 3 ) ? 0xffFFFFFF : 0xff000000, 10, true );
@@ -65,11 +65,11 @@ class HospitalState extends FlxState
 		if ( Reg.ending == 3 ) {
 			FlxG.sound.playMusic( "Song", 0.5 );
 			
-			_credits = new FlxText( 25, 25, 270, "Joon - \t@joonturbo\nMads - \t@pyjamads\nBram - \t@brammichielsen\nRiker - \t@machineers\nJonas\nMusic by Anders Børup\nLogo by Thomas Ryder" );
-			_credits.alpha = 0;
-			add( _credits );
+			var credits:FlxText = new FlxText( 25, 25, 270, "Joon - \t@joonturbo\nMads - \t@pyjamads\nBram - \t@brammichielsen\nRiker - \t@machineers\nJonas\nMusic by Anders Børup\nLogo by Thomas Ryder\nPort by Steve Richey" );
+			credits.alpha = 0;
+			add( credits );
 			
-			FlxTween.singleVar( _credits, "alpha", 1, 5 );
+			FlxTween.singleVar( credits, "alpha", 1, 5 );
 		} else {
 			FlxG.sound.playMusic( "Hospital", 0.7 );
 		}
@@ -130,7 +130,7 @@ class HospitalState extends FlxState
 	
 	override public function destroy():Void
 	{
-		_hospitalSprite = null;
+		_roses.destroy();
 		_roses = null;
 		
 		super.destroy();
