@@ -14,18 +14,13 @@ class PlayerArm extends FlxSprite
 	
 	public function new()
 	{
-		super( 100, 75 );
-		loadGraphic( "images/player_arm.png", true, false, 18, 27 );
-		animation.add( "left", [1], 0 );
-		animation.add( "right", [0], 0 );
+		super( 107, 76 );
+		loadGraphic( "images/player_arm.png", true, true, 11, 25 );
 	}
 	
 	override public function update()
 	{
-		if ( Reg.PS.player.facing == FlxObject.LEFT )
-			animation.play( "left" );
-		else
-			animation.play( "right" );
+		facing = Reg.PS.player.facing;
 		
 		if ( Reg.PS.player.state == Player.DODGING && FlxG.keys.justPressed.DOWN && !_inNeutralPosition )
 		{
@@ -40,10 +35,6 @@ class PlayerArm extends FlxSprite
 		else if ( !FlxG.keys.pressed.UP && !FlxG.keys.pressed.DOWN )
 		{
 			FlxTween.singleVar( this, "y", 9, 1, { complete: notReadyToAttack } );
-			
-			//if ( posToRoot.y == 9 ) {
-			//_inNeutralPosition = true;
-			//}
 		}
 		
 		super.update();

@@ -12,30 +12,22 @@ class Spike extends FlxSprite
 		
 		super( X, Y );
 		
-		loadGraphic( "images/spike.png", true, FacingLeft, 12, 11 );
+		loadGraphic( "images/spike.png", true, true, 12, 11 );
 		
-		animation.add( "idleleft", [0] );
-		animation.add( "idleright", [1] );
-		animation.add( "left", [0,2,4,6,8,10], 5, false );
-		animation.add( "right", [1, 3, 5, 7, 9, 11], 5, false );
+		animation.add( "idle", [0] );
+		animation.add( "bleed", [0, 1, 2, 3, 4, 5], 5, false );
 		
 		changeDirection( FacingLeft );
 	}
 	
 	public function changeDirection( Left:Bool ):Void
 	{
+		facing = Left;
+		
 		if ( _idle ) {
-			if ( Left ) {
-				animation.play( "idleleft" );
-			} else {
-				animation.play( "idleright" );
-			}
+			animation.play( "idle" );
 		} else {
-			if ( Left ) {
-				animation.play( "left" );
-			} else {
-				animation.play( "right" );
-			}
+			animation.play( "bleed" );
 		}
 	}
 }

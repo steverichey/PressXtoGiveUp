@@ -39,14 +39,25 @@ class HospitalState extends FlxState
 			FlxG.cameras.bgColor = 0xff000000;
 		}
 		
+		// Draw the floor and wall.
+		
 		add( FlxGradient.createGradientFlxSprite( FlxG.width, 161, [ 0xffA2A2A2, 0xffDDDDDD ] ) );
 		var floor:FlxSprite = FlxGradient.createGradientFlxSprite( FlxG.width, 39, [ 0xffC7C7C7, 0xffC7C7C7 ] );
 		floor.y = 161;
 		add( floor );
 		
 		add( new FlxSprite( 21, 134, "images/bed.png" ) );
-		add( new FlxSprite( 187, 68, "images/window.png" ) );
-		add( new FlxSprite( 237, 68, "images/window.png" ) );
+		
+		// Draw the windows.
+		
+		var window1:FlxSprite = FlxGradient.createGradientFlxSprite( 47, 20, [ 0xff3D5966, 0xff304F5E ] );
+		FlxGradient.overlayGradientOnFlxSprite( window1, 44, 18, [ 0xff577F92, 0xff457388 ], 0, 2 );
+		var window2:FlxSprite = new FlxSprite();
+		window1.clone( window2 );
+		window1.setPosition( 187, 68 );
+		window2.setPosition( 237, 68 );
+		add( window1 );
+		add( window2 );
 		
 		if ( Reg.ending == 2 ) {
 			add( new FlxSprite( 63, 81, "images/painting.png" ) );
@@ -65,7 +76,7 @@ class HospitalState extends FlxState
 		if ( Reg.ending == 3 ) {
 			FlxG.sound.playMusic( "Song", 0.5 );
 			
-			var credits:FlxText = new FlxText( 25, 25, 270, "Joon - \t@joonturbo\nMads - \t@pyjamads\nBram - \t@brammichielsen\nRiker - \t@machineers\nJonas\nMusic by Anders Børup\nLogo by Thomas Ryder\nPort by Steve Richey" );
+			var credits:FlxText = new FlxText( 25, 25, 270, "Joon - \t@joonturbo\nMads - \t@pyjamads\nBram - \t@brammichielsen\nRiker - \t@machineers\nJonas\nMusic by Anders Børup\nLogo by Thomas Ryder\nPort by Steve Richey - @stvr_tweets" );
 			credits.alpha = 0;
 			add( credits );
 			

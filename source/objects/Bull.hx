@@ -121,12 +121,12 @@ class Bull extends FlxSpriteGroup
 				if ( ( Reg.PS.player.x + Reg.PS.player.width / 2 ) - ( x + width / 2 ) > 0 )
 				{
 					_head.changeHeadPosition( BullHead.HEADRIGHT );
-					_body.facing = FlxObject.RIGHT;
+					facing = FlxObject.RIGHT;
 				}
 				else
 				{
 					_head.changeHeadPosition( BullHead.HEADLEFT );
-					_body.facing = FlxObject.LEFT;
+					facing = FlxObject.LEFT;
 				}
 			case CHARGING: 
 				if ( Math.abs(((Reg.PS.player.x + Reg.PS.player.width / 2) - (x + width / 2))) < LOCK_DISTANCE )
@@ -228,18 +228,18 @@ class Bull extends FlxSpriteGroup
 						if ( (Reg.PS.player.x + Reg.PS.player.width / 2) - (x + width / 2) > 0 )
 						{
 							_head.changeHeadPosition( BullHead.HEADRIGHT );
-							_body.facing = FlxObject.RIGHT;
+							facing = FlxObject.RIGHT;
 						}
 						else
 						{
 							_head.changeHeadPosition( BullHead.HEADLEFT );
-							_body.facing = FlxObject.LEFT;
+							facing = FlxObject.LEFT;
 						}
 						
 						FlxG.sound.play( "BullTransform" );
 						_queueLevelAnimCounter = 200;
-						FlxG.camera.shake( 0.01, 200 / 60 );
 						FlxG.camera.flash( FlxColor.BLACK, 0.1 );
+						FlxG.camera.shake( 0.01, 200 / 60 );
 						
 						FlxTimer.start( 1, flashOnce );
 						FlxTimer.start( 2, flashOnce );
@@ -253,26 +253,13 @@ class Bull extends FlxSpriteGroup
 						_queueLevel = false;
 						_level++;
 						
-						if ( _body.facing == FlxObject.LEFT )
-						{
-							switch( _level ) {
-								case 1: _body.animation.play( "leftMorph2" );
-								case 2: _body.animation.play( "leftMorph3" );
-								case 3: _body.animation.play( "leftMorph4" );
-								case 4: _body.animation.play( "leftMorph5" );
-								case 5: _state = FINISHINFINISHING;
-							}							
+						switch( _level ) {
+							case 1: _body.animation.play( "morph2" );
+							case 2: _body.animation.play( "morph3" );
+							case 3: _body.animation.play( "morph4" );
+							case 4: _body.animation.play( "morph5" );
+							case 5: _state = FINISHINFINISHING;
 						}
-						else
-						{
-							switch( _level ) {
-								case 1: _body.animation.play( "rightMorph2" );
-								case 2: _body.animation.play( "rightMorph3" );
-								case 3: _body.animation.play( "rightMorph4" );
-								case 4: _body.animation.play( "rightMorph5" );
-								case 5: _state = FINISHINFINISHING;
-							}	
-						}						
 					}
 					
 					if ( _queueLevelAnimCounter <= 0)
@@ -285,7 +272,7 @@ class Bull extends FlxSpriteGroup
 						FlxG.timeScale = 1;
 						
 						FlxTween.singleVar( FlxG.camera, "zoom", 4, 1 );
-						FlxTween.singleVar( Reg.PS.camTarget, "y", 40, 0.5 );
+						FlxTween.singleVar( Reg.PS.camTarget, "y", FlxG.height / 2, 0.5 );
 						Audio.removeSinging();
 						
 						_idleDelay = 500 - _level * 100;
@@ -293,15 +280,15 @@ class Bull extends FlxSpriteGroup
 						if ( (Reg.PS.player.x + Reg.PS.player.width / 2) - (x + width / 2) > 0 )
 						{
 							_head.changeHeadPosition( BullHead.HEADRIGHT );
-							_body.facing = FlxObject.RIGHT;
+							facing = FlxObject.RIGHT;
 						}
 						else
 						{
 							_head.changeHeadPosition( BullHead.HEADLEFT );
-							_body.facing = FlxObject.LEFT;
+							facing = FlxObject.LEFT;
 						}
 						
-						_spikes.callAll( "changeDirection", [ _body.facing == FlxObject.LEFT ] );
+						_spikes.callAll( "changeDirection", [ facing == FlxObject.LEFT ] );
 					}
 					else
 					{
@@ -309,10 +296,7 @@ class Bull extends FlxSpriteGroup
 					}
 				}
 			case FINISHINFINISHING:
-				if ( _body.facing == FlxObject.LEFT )
-					_body.animation.play( "left" + (_level + 1) );
-				else
-					_body.animation.play( "right" + (_level + 1) );
+				_body.animation.play( "idle" + _level );
 				
 				doTurn();
 				
@@ -334,14 +318,14 @@ class Bull extends FlxSpriteGroup
 	
 	public function addSpike():Void
 	{
-		var xPos:Float = _body.facing == FlxObject.RIGHT ? Reg.PS.player.x : Reg.PS.player.x + Reg.PS.player.width;
+		var xPos:Float = facing == FlxObject.RIGHT ? Reg.PS.player.x : Reg.PS.player.x + Reg.PS.player.width;
 		
 		var newSpike:Spike;
 		
-		if ( _body.facing == FlxObject.LEFT ) {
-			newSpike = new Spike( xPos - 13, FlxRandom.floatRanged( 50, 60 ), _body.facing == FlxObject.LEFT, false );
+		if ( facing == FlxObject.LEFT ) {
+			newSpike = new Spike( xPos - 13, FlxRandom.floatRanged( 50, 60 ), facing == FlxObject.LEFT, false );
 		} else {
-			newSpike = new Spike( xPos + 5, FlxRandom.floatRanged( 50, 60 ), _body.facing == FlxObject.LEFT, false );
+			newSpike = new Spike( xPos + 5, FlxRandom.floatRanged( 50, 60 ), facing == FlxObject.LEFT, false );
 		}
 		
 		Reg.PS.layerMiddle.add( newSpike );

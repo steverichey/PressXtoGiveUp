@@ -36,16 +36,13 @@ class Player extends FlxSpriteGroup
 		maxVelocity.y = drag.y;
 		
 		_player = new FlxSprite();
-		_player.loadGraphic("images/player_walk.png", true, true, 60, 60);
-		_player.animation.add("idleRight", [0], 10, true);
-		_player.animation.add("idleLeft", [5], 10, true);
-		_player.animation.add("walkRight", [1,2,0], 10, true);
-		_player.animation.add("walkLeft", [4, 3, 5], 10, true);
-		_player.animation.add("dodgeRight", [7,7,7,6,6], 2, true);
-		_player.animation.add("dodgeLeft", [9, 9, 9, 8, 8], 2, true);
-		_player.animation.add("hitRight", [10,12,14,16], 10, true);
-		_player.animation.add("hitLeft", [11,13,15,17], 10, true);
-		_player.animation.add("giveUp", [18], 2, true);
+		_player.loadGraphic("images/player.png", true, true, 37, 58);
+		_player.animation.add("idle", [0], 10, true);
+		_player.animation.add("walk", [1, 2, 0], 10, true);
+		_player.animation.add("dodge", [3, 3, 3, 4, 4], 2, true);
+		_player.animation.add("hit", [5, 6, 7, 8], 10, true);
+		_player.animation.add("giveUp", [9], 2, true);
+		
 		_player.facing = FlxObject.RIGHT;
 		add( _player );
 		

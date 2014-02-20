@@ -7,21 +7,51 @@ import flixel.system.scaleModes.RatioScaleMode;
 
 class FocusState extends FlxState
 {
-	private var _clickHere:FlxSprite;
+	/**
+	 * Just a flag to see whether or not a button was pressed this frame.
+	 */
+	private var _pressed:Bool = false;
 	
 	override public function create():Void
 	{
 		FlxG.cameras.bgColor = 0xff000000;
 		
 		// Helps prevent resizing bugs
+		
 		FlxG.scaleMode = new RatioScaleMode();
 		
-		#if mobile
-		_clickHere = new FlxSprite( 0, 0, "images/touchhere.png" );
-		#else
-		_clickHere = new FlxSprite( 0, 0, "images/clickhere.png" );
+		// Detect gamepad status.
+		
+		#if !FLX_NO_GAMEPAD
+		if ( FlxG.gamepads.getFirstActiveGamepad() != null ) {
+			Input.gamePad = FlxG.gamepads.getFirstActiveGamepad();
+			Input.hasGamepad = true;
+		}
 		#end
-		add( _clickHere );
+		
+		add( new FlxSprite( 0, 0, "images/focus_bg.png" ) );
+		
+		var here:FlxSprite;
+		
+		#if mobile
+		if ( Input.hasGamepad ) {
+			here = new FlxSprite( 0, 0, "images/press_any.png" );
+		} else {
+			here = new FlxSprite( 0, 0, "images/touch_here.png" );
+		}
+		#else
+		if ( Input.hasGamepad ) {
+			here = new FlxSprite( 0, 0, "images/press_any.png" );
+		} else {
+			here = new FlxSprite( 0, 0, "images/click_here.png" );
+		}
+		#end
+		
+		here.x = ( FlxG.width - here.width ) / 2;
+		here.y = ( FlxG.height - here.height ) / 2;
+		add( here );
+		
+		// Set up the audio effects.
 		
 		Audio.init();
 		
@@ -30,21 +60,9 @@ class FocusState extends FlxState
 	
 	override public function update():Void
 	{
-		#if !FLX_NO_MOUSE
-		if ( FlxG.mouse.justPressed ) {
-		#else if !FLX_NO_TOUCH
-		if ( FlxG.touches.getFirst() != null ) {
-		#end
+		if ( Input.any )
 			FlxG.switchState( new PlayState() );
-		}
 		
 		super.update();
-	}
-	
-	override public function destroy():Void
-	{
-		_clickHere = null;
-		
-		super.destroy();
 	}
 }
