@@ -47,7 +47,7 @@ class Bull extends FlxSpriteGroup
 	{
 		super( 250, 57 );
 		
-		_body = new FlxSprite( 31, 3 );
+		_body = new FlxSprite( 13, 3 );
 		_body.loadGraphic("images/bull_body.png", true, true, 113, 102);
 		_body.animation.add("idle0", [0], 0);
 		_body.animation.add("idle1", [1], 0);
@@ -72,8 +72,6 @@ class Bull extends FlxSpriteGroup
 		
 		add( _head );
 		add( _legs );
-		
-		facing = FlxObject.LEFT;
 		
 		_headBob = FlxTween.singleVar( _head, "y", _head.y + 3, 1, { type: FlxTween.PINGPONG } );
 		

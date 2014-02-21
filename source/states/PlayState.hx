@@ -58,7 +58,7 @@ class PlayState extends FlxState
 		add( _layerFront );
 		
 		for ( i in 0...2000 ) {
-			_layerBack.add( new FlxSprite( ( i - 1000 ) * 20, 0, "images/arena.png" ) );
+			_layerBack.add( new FlxSprite( ( i - 1000 ) * 22, 0, "images/arena.png" ) );
 		}
 		
 		_player = new Player();
@@ -150,7 +150,7 @@ class PlayState extends FlxState
 	
 	private function titleOut( ?f:FlxTween ):Void
 	{
-		FlxTween.singleVar( _title, "y", -_title.height, 3 );
+		FlxTween.singleVar( _title, "y", -_title.height, 1 );
 	}
 	
 	private function removeHelpAndTitle( ?f:FlxTween ):Void

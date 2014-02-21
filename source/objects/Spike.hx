@@ -1,5 +1,6 @@
 package objects;
 
+import flixel.FlxObject;
 import flixel.FlxSprite;
 
 class Spike extends FlxSprite
@@ -22,7 +23,7 @@ class Spike extends FlxSprite
 	
 	public function changeDirection( Left:Bool ):Void
 	{
-		facing = Left;
+		facing = Left ? FlxObject.LEFT : FlxObject.RIGHT;
 		
 		if ( _idle ) {
 			animation.play( "idle" );

@@ -41,12 +41,11 @@ class Player extends FlxSpriteGroup
 		_player.animation.add("walk", [1, 2, 0], 10, true);
 		_player.animation.add("dodge", [3, 3, 3, 4, 4], 2, true);
 		_player.animation.add("hit", [5, 6, 7, 8], 10, true);
-		_player.animation.add("giveUp", [9], 2, true);
 		
 		_player.facing = FlxObject.RIGHT;
 		add( _player );
 		
-		_clothHandle = new ClothHandle( x, y + 20 );
+		_clothHandle = new ClothHandle( x + 6, y + 20 );
 		add( _clothHandle );
 		
 		_arm = new PlayerArm();
@@ -66,18 +65,14 @@ class Player extends FlxSpriteGroup
 			case IDLE:
 				if ( FlxG.keys.pressed.LEFT ) {
 					x -= _speed * FlxG.timeScale;
-					//_player.facing = FlxObject.LEFT;
-					_player.animation.play("walkLeft");
+					facing = FlxObject.LEFT;
+					_player.animation.play("walk");
 				} else if ( FlxG.keys.pressed.RIGHT ) {
 					x += _speed * FlxG.timeScale;
-					//_player.facing = FlxObject.RIGHT;
-					_player.animation.play("walkRight");
+					facing = FlxObject.RIGHT;
+					_player.animation.play("walk");
 				} else {
-					if ( _player.facing == FlxObject.LEFT ) {
-						_player.animation.play( "idleLeft" );
-					} else {
-						_player.animation.play( "idleRight" );
-					}				
+					_player.animation.play( "idle" );
 				}								
 				
 				if ( FlxG.keys.justPressed.SPACE ) {
@@ -94,11 +89,7 @@ class Player extends FlxSpriteGroup
 					solid = false;
 					_dodgeCounter = DODGE_COUNTER_START;
 					
-					if ( _player.facing == FlxObject.LEFT ) {
-						_player.animation.play( "dodgeLeft" );
-					} else {
-						_player.animation.play( "dodgeRight" );
-					}									
+					_player.animation.play( "dodge" );
 				}
 			case DODGING:
 				if ( FlxG.keys.justPressed.SPACE ) {
@@ -109,11 +100,7 @@ class Player extends FlxSpriteGroup
 			case FUCKED:
 				_arm.visible = false;
 				
-				if ( _player.facing == FlxObject.LEFT ) {
-					_player.animation.play( "hitLeft" );
-				} else {
-					_player.animation.play( "hitRight" );
-				}
+				_player.animation.play( "hit" );
 				
 				if ( _fuckedCounter <= 0 ) {
 					_state = IDLE;
@@ -129,9 +116,9 @@ class Player extends FlxSpriteGroup
 				|| ( _player.facing == FlxObject.RIGHT && _state == DODGING ) 
 				|| ( _player.facing == FlxObject.RIGHT && _state == FUCKED ) )
 		{
-			_clothHandle.setTopPieceX( x + 6 );
+			_clothHandle.setTopPieceX( x + 2 );
 		} else {
-			_clothHandle.setTopPieceX( x - 6 + width - 10 );
+			_clothHandle.setTopPieceX( x + width - 20 );
 		}
 		
 		super.update();
@@ -157,7 +144,7 @@ class Player extends FlxSpriteGroup
 	
 	public function hideArm():Void
 	{
-		// _arm.visible = false; // probably
+		_arm.visible = false; // probably
 	}
 	
 	private function get_state():Int

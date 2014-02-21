@@ -20,17 +20,14 @@ class BullHead extends FlxSprite
 		
 		animation.add("red",   [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0], 10, true);
 		animation.add("green", [4, 4, 4, 4, 4, 4, 4, 4, 5, 6, 7, 4, 4, 4, 4, 4, 4, 4, 4, 4], 10, true);
-		
-		facing = FlxObject.LEFT;
 	}
 	
 	override public function update()
 	{
-		if ( eyeState == GREENEYE ) {
+		if ( eyeState == GREENEYE )
 			animation.play( "green" );
-		} else {
+		else
 			animation.play( "red" );
-		}
 		
 		super.update();
 	}
