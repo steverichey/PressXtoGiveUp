@@ -76,7 +76,14 @@ class PlayState extends FlxState
 		
 		_glitches = new FlxTypedGroup<Glitch>();
 		
+		#if mobile
+		if ( Input.hasGamepad )
+			_title = new FlxSprite( 12, -FlxG.height + 72, "images/title_ouya.png" );
+		else
+			_title = new FlxSprite( 12, -FlxG.height + 72, "images/title.png" );
+		#else
 		_title = new FlxSprite( 12, -FlxG.height + 72, "images/title.png" );
+		#end
 		_title.scrollFactor.x = 0;
 		_title.scrollFactor.y = 0;
 		_layerFront.add( _title );
