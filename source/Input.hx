@@ -81,7 +81,7 @@ class Input
 		#else
 		if ( hasGamepad && gamePad.justPressed( XboxButtonID.X ) )
 			pressed = true;
-		#enf=d
+		#end
 		#end
 		
 		return pressed;

@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxTween.TweenOptions;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxTimer;
@@ -65,10 +66,10 @@ class TextState extends FlxState
 		add( _text3 );
 		add( _text4 );
 		
-		FlxTween.singleVar( _text1, "alpha", 1, 2, { delay: 0.5 } );
-		FlxTween.singleVar( _text2, "alpha", 1, 2, { delay: 3.5 } );
-		FlxTween.singleVar( _text3, "alpha", 1, 2, { delay: 6.5 } );
-		FlxTween.singleVar( _text4, "alpha", 1, 2, { delay: 9.5 } );
+		FlxTween.singleVar( _text1, "alpha", 1, 2, { startDelay: 0.5 } );
+		FlxTween.singleVar( _text2, "alpha", 1, 2, { startDelay: 3.5 } );
+		FlxTween.singleVar( _text3, "alpha", 1, 2, { startDelay: 6.5 } );
+		FlxTween.singleVar( _text4, "alpha", 1, 2, { startDelay: 9.5 } );
 		
 		FlxTimer.start( 13, beginFade );
 		
@@ -87,7 +88,7 @@ class TextState extends FlxState
 		
 		if ( Reg.ending == 1 ) {
 			if ( _text1.alpha >= 1 ) {
-				FlxTween.singleVar( _text1, "alpha", 0, 2, { delay: 1 } );
+				FlxTween.singleVar( _text1, "alpha", 0, 2, { startDelay:1.0 } );
 			}
 		}
 		
