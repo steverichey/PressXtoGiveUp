@@ -99,9 +99,9 @@ class TextState extends FlxState
 	{
 		if ( !_fading ) {
 			if ( Reg.ending == 3 ) {
-				FlxG.camera.fade( 0xffFFFFFF, 1, endState );
+				FlxG.camera.fade( 0xffFFFFFF, 1, false, endState );
 			} else {
-				FlxG.camera.fade( 0xff000000, 1, endState );
+				FlxG.camera.fade( 0xff000000, 1, false, endState );
 			}
 			
 			_fading = true;

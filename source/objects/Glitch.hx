@@ -3,6 +3,7 @@ package objects;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
+import flash.utils.ByteArray;
 import flash.Vector;
 import flash.geom.Rectangle;
 import flixel.FlxBasic;
@@ -24,12 +25,11 @@ class Glitch extends FlxBasic
 	#if flash
 	private var _vector:Vector<UInt>;
 	#else
-	private var _intArray:Array<Int>;
+	private var _vector:Array<Int>;
 	private var _bitDat:BitmapData;
-	private var _altDat:BitmapData;
-	private var _matrix:Matrix;
 	private var _onStage:Bool = false;
 	private var _bitmap:Bitmap;
+	static private var _commonBitmapData:BitmapData;
 	#end
 	
 	public function new()
@@ -38,26 +38,29 @@ class Glitch extends FlxBasic
 		
 		_width = rand( FlxG.width );
 		_height = rand( 10 );
-		
-		_rectangle = new Rectangle( rand( FlxG.width ), rand( FlxG.height ) , _width, _height );
-		_randomRectangle = generateRandomRectangle();
-		
 		_dead = FlxRandom.chanceRoll();
 		
-		#if !flash
-		_bitDat = new BitmapData( Std.int( _rectangle.width ), Std.int( _rectangle.height ), false, 0xff00ff00 );
-		//_altDat = new BitmapData( Std.int( _randomRectangle.width ), Std.int( _randomRectangle.height ), false, 0xffFF0000 );
-		//_matrix = new Matrix( 1, 0, 0, 1, _randomRectangle.x, _randomRectangle.y );
-		//_altDat.draw( FlxG.camera.canvas, _matrix );
-		//_intArray = _altDat.getVector( _rectangle );
-		//_bitDat.setVector( _randomRectangle, _intArray );
-		_bitDat.draw( FlxG.camera.canvas, new Matrix( 1, 0, 0, 1, -100, -100 ) );
-		_bitmap = new Bitmap( _bitDat );
-		_bitmap.x = _rectangle.x;
-		_bitmap.y = _rectangle.y;
-		#end
+		_randomRectangle = new Rectangle();
+		generateRandomRectangle( _randomRectangle );
 		
-		//trace( FlxG.camera.canvas.graphics. );
+		#if flash
+		_rectangle = new Rectangle( rand( FlxG.width ), rand( FlxG.height ) , _width, _height );
+		#else
+		if ( _commonBitmapData == null )
+		{
+			_commonBitmapData = new BitmapData( FlxG.width, FlxG.height, false, 0 );
+		}
+		
+		// Stores the current screen image as BitmapData
+		_commonBitmapData.draw( FlxG.camera.canvas );
+		
+		_vector = _commonBitmapData.getVector( _randomRectangle );
+		_bitDat = new BitmapData( _width, _height, false, 0 );
+		_bitDat.setVector( _bitDat.rect, _vector );
+		_bitmap = new Bitmap( _bitDat );
+		_bitmap.x = rand( FlxG.width );
+		_bitmap.y = rand( FlxG.height );
+		#end
 	}
 	
 	/**
@@ -67,16 +70,24 @@ class Glitch extends FlxBasic
 	{
 		#if flash
 		if ( !_dead )
-			_randomRectangle = generateRandomRectangle();
+		{
+			generateRandomRectangle( _randomRectangle );
+		}
 		
 		_vector = FlxG.camera.buffer.getVector( _randomRectangle );
 		FlxG.camera.buffer.setVector( _rectangle, _vector );
 		#else
-		if ( !_onStage ) {
-			FlxG.camera.canvas.addChild( _bitmap );
+		if ( !_onStage )
+		{
+			FlxG.camera.canvas.addChild( _bitmap, 1 );
+			//FlxG.addChildBelowMouse( _bitmap );
 			_onStage = true;
-		} else if ( !_dead ) {
-			
+		}
+		else if ( !_dead )
+		{
+			generateRandomRectangle( _randomRectangle );
+			_vector = _commonBitmapData.getVector( _randomRectangle );
+			_bitDat.setVector( _bitDat.rect, _vector );
 		}
 		#end
 	}
@@ -84,15 +95,18 @@ class Glitch extends FlxBasic
 	/**
 	 * Generates a random rectangle.
 	 */
-	private function generateRandomRectangle():Rectangle
+	private function generateRandomRectangle( rectangle:Rectangle ):Void
 	{
-		return new Rectangle( rand( FlxG.width - _width ), rand( FlxG.height - _height ), _width, _height );
+		rectangle.x = rand( FlxG.width - _width );
+		rectangle.y = rand( FlxG.height - _height );
+		rectangle.width = _width;
+		rectangle.height = _height;
 	}
 	
 	/**
 	 * Generate a random integer between 0 and Max. Just shorthand for FlxRandom.intRanged
 	 */
-	private function rand( Max:Int ):Int
+	inline private function rand( Max:Int ):Int
 	{
 		return FlxRandom.intRanged( 0, Max );
 	}

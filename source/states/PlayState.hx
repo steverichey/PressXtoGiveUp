@@ -35,6 +35,9 @@ class PlayState extends FlxState
 	
 	private var _hideHelp:Bool = false;
 	private var _maxX:Int = 0;
+	private var _ending:Bool = false;
+	
+	inline static private var FADE_OUT_DELAY:Int = 7;
 	
 	override public function create():Void
 	{
@@ -71,10 +74,10 @@ class PlayState extends FlxState
 		_camTarget.visible = false;
 		add( _camTarget );
 		
-		FlxG.camera.follow( _camTarget, FlxCamera.STYLE_PLATFORMER );
+		FlxG.camera.follow( _camTarget, FlxCamera.STYLE_LOCKON );
 		FlxG.camera.setBounds( 0, 0, 22000, 180, true );
 		
-		_glitches = new FlxTypedGroup<Glitch>();
+		_glitches = new FlxTypedGroup<Glitch>( 100 );
 		
 		#if mobile
 		if ( Input.hasGamepad )
@@ -102,9 +105,7 @@ class PlayState extends FlxState
 	
 	override public function update():Void
 	{
-		super.update();
-		
-		if ( FlxG.sound.list.length > 0 )
+		if ( FlxG.sound.list.length < 1 )
 			FlxG.sound.play( "Bass" );
 		
 		if ( !_hideHelp ) {
@@ -116,6 +117,8 @@ class PlayState extends FlxState
 		}
 		
 		_camTarget.x = ( _bull.x + _bull.width / 2 + _player.x + _player.width / 2 ) / 2;
+		
+		super.update();
 	}
 	
 	override public function draw():Void
@@ -127,11 +130,13 @@ class PlayState extends FlxState
 	
 	public function endGame( EndType:Int ):Void
 	{
+		_ending = true;
+		
 		Reg.ending = EndType;
 		
 		switch ( EndType ) {
 			case 1:
-				FlxTimer.start( 7, fadeGame );
+				FlxTimer.start( FADE_OUT_DELAY, fadeGame );
 				FlxG.sound.play( "Static" );
 			case 2:
 				FlxG.camera.fade( FlxColor.BLACK, 5, false, nextState );

@@ -3,6 +3,7 @@ package states;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.system.scaleModes.PixelPerfectScaleMode;
 import flixel.system.scaleModes.RatioScaleMode;
 
 class FocusState extends FlxState
@@ -18,7 +19,7 @@ class FocusState extends FlxState
 		
 		// Helps prevent resizing bugs
 		
-		FlxG.scaleMode = new RatioScaleMode();
+		FlxG.scaleMode = new PixelPerfectScaleMode();
 		
 		// Detect gamepad status.
 		

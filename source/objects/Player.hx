@@ -26,6 +26,8 @@ class Player extends FlxSpriteGroup
 	
 	inline static private var FUCK_COUNTER_START:Int = 100;
 	inline static private var DODGE_COUNTER_START:Int = 25;
+	inline static private var LEFT_CLOTH_OFFSET:Int = -7;
+	inline static private var RIGHT_CLOTH_OFFSET:Int = 34;
 	
 	public function new()
 	{
@@ -41,11 +43,10 @@ class Player extends FlxSpriteGroup
 		_player.animation.add("walk", [1, 2, 0], 10, true);
 		_player.animation.add("dodge", [3, 3, 3, 4, 4], 2, true);
 		_player.animation.add("hit", [5, 6, 7, 8], 10, true);
-		
 		_player.facing = FlxObject.RIGHT;
 		add( _player );
 		
-		_clothHandle = new ClothHandle( x + 6, y + 20 );
+		_clothHandle = new ClothHandle( x + RIGHT_CLOTH_OFFSET, y + 20 );
 		add( _clothHandle );
 		
 		_arm = new PlayerArm();
@@ -116,9 +117,9 @@ class Player extends FlxSpriteGroup
 				|| ( _player.facing == FlxObject.RIGHT && _state == DODGING ) 
 				|| ( _player.facing == FlxObject.RIGHT && _state == FUCKED ) )
 		{
-			_clothHandle.setTopPieceX( x + 2 );
+			_clothHandle.setTopPieceX( x + LEFT_CLOTH_OFFSET );
 		} else {
-			_clothHandle.setTopPieceX( x + width - 20 );
+			_clothHandle.setTopPieceX( x + RIGHT_CLOTH_OFFSET );
 		}
 		
 		super.update();
