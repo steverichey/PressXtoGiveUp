@@ -13,6 +13,8 @@ class BullHead extends FlxSprite
 	inline static public var REDEYE:Int = 0;
 	inline static public var GREENEYE:Int = 1;
 	
+	inline static private var HEAD_CHANGE_DISTANCE:Int = 101;
+	
 	public function new( X:Int, Y:Int )
 	{
 		super( X, Y );
@@ -34,12 +36,14 @@ class BullHead extends FlxSprite
 	
 	public function changeHeadPosition( Position:Int ):Void
 	{
-		if ( Position == HEADLEFT ) {
+		if ( Position == HEADLEFT && headState != HEADLEFT ) {
 			headState = HEADLEFT;
 			facing = FlxObject.LEFT;
-		} else {				
+			x -= HEAD_CHANGE_DISTANCE;
+		} else if ( Position == HEADRIGHT && headState != HEADRIGHT ) {				
 			headState = HEADRIGHT;
 			facing = FlxObject.RIGHT;
+			x += HEAD_CHANGE_DISTANCE;
 		}
 	}
 	

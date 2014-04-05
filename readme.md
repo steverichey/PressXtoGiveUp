@@ -1,4 +1,4 @@
-# Press X to Give Up
+# ![Icon](assets/icon.png) Press X to Give Up
 
 <p align="center">
 <img src="assets/screenshot.png" alt="Screenshot"/>

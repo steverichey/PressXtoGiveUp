@@ -22,7 +22,7 @@ class ClothPiece extends FlxSprite
 		
 		_parent = Parent;
 		
-		Reg.PS.layerMiddle.add( this );
+		Reg.PS.layerFront.add( this );
 		
 		clothWidth = Width;
 		clothHeight = Height;

@@ -42,6 +42,8 @@ class Bull extends FlxSpriteGroup
 	
 	inline static private var SPEED:Int = 100;
 	inline static private var LOCK_DISTANCE:Int = 100;
+	inline static private var BODY_LEFT_X:Int = 13;
+	inline static private var BODY_RIGHT_X:Int = 20;
 	
 	public function new()
 	{
@@ -119,11 +121,13 @@ class Bull extends FlxSpriteGroup
 				if ( ( Reg.PS.player.x + Reg.PS.player.width / 2 ) - ( x + width / 2 ) > 0 )
 				{
 					_head.changeHeadPosition( BullHead.HEADRIGHT );
+					_body.x = x + BODY_RIGHT_X;
 					facing = FlxObject.RIGHT;
 				}
 				else
 				{
 					_head.changeHeadPosition( BullHead.HEADLEFT );
+					_body.x = x + BODY_LEFT_X;
 					facing = FlxObject.LEFT;
 				}
 			case CHARGING: 
