@@ -50,7 +50,7 @@ class PlayState extends FlxState
 		if ( FlxG.sound.music != null )
 			FlxG.sound.music.stop();
 		
-		FlxG.camera.bgColor = 0xf1dc9b;
+		FlxG.camera.bgColor = 0xfff1dc9b;
 		
 		_layerBack = new FlxGroup();
 		_layerMiddle = new FlxGroup();

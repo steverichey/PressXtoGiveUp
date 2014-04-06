@@ -78,6 +78,8 @@ class Bull extends FlxSpriteGroup
 		_headBob = FlxTween.singleVar( _head, "y", _head.y + 3, 1, { type: FlxTween.PINGPONG } );
 		
 		_spikes = new FlxTypedGroup<Spike>();
+		
+		_body.width = 113;
 	}
 	
 	override public function update():Void
@@ -88,13 +90,13 @@ class Bull extends FlxSpriteGroup
 		switch ( _state ) {
 			case IDLE: 
 				if ( _idleDelay <= 0 ) {
-					if ( Reg.PS.player.x + Reg.PS.player.width / 2 < x + width / 2 )
+					if ( Reg.PS.player.x + Reg.PS.player.width / 2 < _body.x + _body.width / 2 )
 					{
 						acceleration.x = -SPEED;
 						_state = CHARGING;
 						_headBob.active = false;
 					}
-					else if ( Reg.PS.player.x + Reg.PS.player.width / 2 > x + width / 2)
+					else if ( Reg.PS.player.x + Reg.PS.player.width / 2 > _body.x + _body.width / 2)
 					{
 						acceleration.x = SPEED;
 						_state = CHARGING;
@@ -118,7 +120,7 @@ class Bull extends FlxSpriteGroup
 				_idleDelay--;
 				_switchTargetDelay--;
 				
-				if ( ( Reg.PS.player.x + Reg.PS.player.width / 2 ) - ( x + width / 2 ) > 0 )
+				if ( Reg.PS.player.x + Reg.PS.player.width / 2 > _body.x + _body.width / 2 )
 				{
 					_head.changeHeadPosition( BullHead.HEADRIGHT );
 					_body.x = x + BODY_RIGHT_X;

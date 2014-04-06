@@ -28,6 +28,8 @@ class Player extends FlxSpriteGroup
 	inline static private var DODGE_COUNTER_START:Int = 25;
 	inline static private var LEFT_CLOTH_OFFSET:Int = -7;
 	inline static private var RIGHT_CLOTH_OFFSET:Int = 34;
+	inline static private var ARM_OFFSET_X:Int = 98;
+	inline static private var ARM_OFFSET_Y:Int = 76;
 	
 	public function new()
 	{
@@ -49,7 +51,7 @@ class Player extends FlxSpriteGroup
 		_clothHandle = new ClothHandle( x + RIGHT_CLOTH_OFFSET, y + 20 );
 		add( _clothHandle );
 		
-		_arm = new PlayerArm();
+		_arm = new PlayerArm( ARM_OFFSET_X, ARM_OFFSET_Y );
 		_arm.visible = false;
 		add( _arm );
 		Reg.PS.layerFront.add( _arm );
@@ -80,12 +82,15 @@ class Player extends FlxSpriteGroup
 					_state = DODGING;
 					
 					if (facing == FlxObject.LEFT)	{
-						_arm.x = 14;														
+						_arm.x = x + 2;
 					} else {
-						_arm.x = 28;
+						_arm.x = x + 24;
 					}
 					
-					_arm.y = 9;			
+					if ( !_arm.moving ) {
+						_arm.y = y + 9;
+					}
+					
 					_arm.visible = true;
 					solid = false;
 					_dodgeCounter = DODGE_COUNTER_START;
@@ -151,5 +156,10 @@ class Player extends FlxSpriteGroup
 	private function get_state():Int
 	{
 		return _state;
+	}
+	
+	override public function get_width():Float
+	{
+		return _player.width;
 	}
 }

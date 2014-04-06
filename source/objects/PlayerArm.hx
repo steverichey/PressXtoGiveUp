@@ -7,14 +7,16 @@ import flixel.tweens.FlxTween;
 
 class PlayerArm extends FlxSprite
 {
+	public var moving(default,null):Bool = false;
+	
 	private var _readyToAttack:Bool = false;
 	private var _inNeutralPosition:Bool = false;
 	
 	inline static private var ARM_SPEED:Int = 3;
 	
-	public function new()
+	public function new( X:Float, Y:Float )
 	{
-		super( 107, 76 );
+		super( X, Y );
 		loadGraphic( "images/player_arm.png", true, true, 11, 25 );
 	}
 	
@@ -24,17 +26,20 @@ class PlayerArm extends FlxSprite
 		
 		if ( Reg.PS.player.state == Player.DODGING && FlxG.keys.justPressed.DOWN && !_inNeutralPosition )
 		{
-			FlxTween.singleVar( this, "y", 15, 0.1, { complete: putInSpike } );
+			FlxTween.singleVar( this, "y", Reg.PS.player.y + 15, 0.1, { complete: putInSpike } );
+			moving = true;
 			_inNeutralPosition = true;
 		}
 		else if ( Reg.PS.player.state == Player.DODGING && FlxG.keys.justPressed.UP )
 		{
-			FlxTween.singleVar( this, "y", 0, 2, { complete: readyToAttack } );
+			FlxTween.singleVar( this, "y", Reg.PS.player.y, 2, { complete: readyToAttack } );
+			moving = true;
 			_inNeutralPosition = false;
 		}
 		else if ( !FlxG.keys.pressed.UP && !FlxG.keys.pressed.DOWN )
 		{
-			FlxTween.singleVar( this, "y", 9, 1, { complete: notReadyToAttack } );
+			FlxTween.singleVar( this, "y", Reg.PS.player.y + 9, 1, { complete: notReadyToAttack } );
+			moving = true;
 		}
 		
 		super.update();
@@ -43,15 +48,19 @@ class PlayerArm extends FlxSprite
 	private function readyToAttack( ?f:FlxTween ):Void
 	{
 		_readyToAttack = true;
+		moving = false;
 	}
 	
 	private function notReadyToAttack( ?f:FlxTween ):Void
 	{
 		_readyToAttack = false;
+		moving = false;
 	}
 	
 	private function putInSpike( ?f:FlxTween ):Void
 	{
+		moving = false;
+		
 		if ( _readyToAttack && Reg.PS.bull.x + 10 < x && x < Reg.PS.bull.x + Reg.PS.bull.width - 20 )
 		{
 			Reg.PS.bull.addSpike();

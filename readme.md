@@ -1,7 +1,7 @@
 # ![Icon](assets/icon.png) Press X to Give Up
 
 <p align="center">
-<img src="assets/screenshot.png" alt="Screenshot"/>
+<img src="assets/screenshot.png" alt="Press X to Give Up - Screenshot"/>
 </p>
 
 Click the game to start. Play with music (headphones).
